@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import tech.keyops.challenge.myweather.arc.data.source.City
@@ -33,10 +34,18 @@ class CitiesFragment : Fragment() {
         viewModel.cities.observe(viewLifecycleOwner) { cities ->
             onCitiesLoaded(cities)
         }
+
+        viewModel.navigateToWeatherScreenEvent.observe(viewLifecycleOwner) { e ->
+            e.getContentIfNotDispatchedOrReturnNull()?.let {
+                navigateToWeatherScreen(it)
+            }
+        }
     }
 
     private fun onCitiesLoaded(cities: List<City>) {
-        val cityAdapter = CityAdapter(cities)
+        val cityAdapter = CityAdapter(cities) { index ->
+            viewModel.onCityItemClick(index)
+        }
 
         val dividerItemDecoration =
             DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -47,4 +56,11 @@ class CitiesFragment : Fragment() {
         }
     }
 
+    private fun navigateToWeatherScreen(cityName: String) {
+        findNavController()
+            .navigate(
+                CitiesFragmentDirections
+                    .actionCitiesScreenToWeatherScreen(cityName)
+            )
+    }
 }

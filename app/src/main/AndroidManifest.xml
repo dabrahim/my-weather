@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tech.keyops.challenge.myweather">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyWeatherApplication"
         android:allowBackup="false"
