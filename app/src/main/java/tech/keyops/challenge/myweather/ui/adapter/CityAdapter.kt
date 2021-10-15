@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import tech.keyops.challenge.myweather.arc.data.source.City
 import tech.keyops.challenge.myweather.databinding.CityItemBinding
 
-class CityAdapter(private val cities: List<City>) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+class CityAdapter(private val cities: List<City>, val onItemClick: (position: Int) -> Unit) :
+    RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: CityItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: CityItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(city: City) {
             binding.cityName.text = city.name
@@ -27,6 +28,7 @@ class CityAdapter(private val cities: List<City>) : RecyclerView.Adapter<CityAda
         ViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.binding.root.setOnClickListener { onItemClick(position) }
         val city = getItem(position)
         holder.bind(city)
     }
