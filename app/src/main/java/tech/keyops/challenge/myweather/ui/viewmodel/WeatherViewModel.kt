@@ -19,6 +19,7 @@ class WeatherViewModel @Inject constructor(
 
     private val cityName: String = savedState.get<String>("cityName") as String
 
+    // ----
     private val _toggleLoaderVisibilityEvent = MutableLiveData<Event<Boolean>>()
     val toggleLoaderVisibilityEvent: LiveData<Event<Boolean>>
         get() = _toggleLoaderVisibilityEvent
@@ -27,11 +28,22 @@ class WeatherViewModel @Inject constructor(
         _toggleLoaderVisibilityEvent.value = Event(show)
     }
 
+    // ----
+    private val _showErrorViewEvent = MutableLiveData<Event<Unit>>()
+    val showErrorViewEvent: LiveData<Event<Unit>>
+        get() = _showErrorViewEvent
+
+    private fun dispatchShowErrorViewEvent() {
+        _showErrorViewEvent.value = Event(Unit)
+    }
+
+    // ----
     private val _weather = MutableLiveData<Weather>()
     val weather: LiveData<Weather>
         get() = _weather
 
     init {
+        // Upon ViewModel creation, we fetch the data from the API
         fetchCityWeather()
     }
 
@@ -42,17 +54,18 @@ class WeatherViewModel @Inject constructor(
         }
 
         weatherRepository.getCityWeather(cityName)
-            .doOnSubscribe { dispatchToggleLoaderVisibilityEvent(true) }
-            .doAfterNext { dispatchToggleLoaderVisibilityEvent(false) }
-            .subscribe(observer)
+            .doOnSubscribe { dispatchToggleLoaderVisibilityEvent(true) } // We display the loader view while we get the data from the API
+            .doAfterNext { dispatchToggleLoaderVisibilityEvent(false) } // When the data is loaded, we hide the loader view
+            .subscribe(observer) // We register our observer
     }
 
     private fun onWeatherDataFetched(weather: Weather) {
-        _weather.value = weather
+        _weather.value = weather // We post a new value to notify all listeners
     }
 
     private fun onFetchError(e: Throwable) {
-        TODO("Implement this method")
+        // To simplify this application, we simply display a generic error view when
+        // something bad happens
+        dispatchShowErrorViewEvent()
     }
-
 }

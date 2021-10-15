@@ -31,17 +31,27 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // We subscribe to the weather data and display it as soon as we receive it
         viewModel.weather.observe(viewLifecycleOwner) { weather ->
             displayWeatherData(weather)
         }
 
+        // We subscribe to the loader visibility event and show/hide the loader view accordingly
         viewModel.toggleLoaderVisibilityEvent.observe(viewLifecycleOwner) { e ->
+            e.getContentIfNotDispatchedOrReturnNull()
+                ?.let { // We make sure this event wasn't already dealt with
+                    toggleLoaderVisibility(it)
+                }
+        }
+
+        viewModel.showErrorViewEvent.observe(viewLifecycleOwner) { e ->
             e.getContentIfNotDispatchedOrReturnNull()?.let {
-                toggleLoaderVisibility(it)
+                showErrorView()
             }
         }
     }
 
+    // Method to display the data to the view
     private fun displayWeatherData(weather: Weather) {
         binding.apply {
             temperature.text =
@@ -55,7 +65,13 @@ class WeatherFragment : Fragment() {
         }
     }
 
+    // Used to show / hide the loader view
     private fun toggleLoaderVisibility(show: Boolean) {
         binding.loaderLayer.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    // Used to show the error view in case something bad happens
+    private fun showErrorView() {
+        binding.errorView.visibility = View.VISIBLE
     }
 }

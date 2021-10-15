@@ -1,5 +1,9 @@
 package tech.keyops.challenge.myweather.ui.utility
 
+/**
+ * This class is used as a data wrapper and a means of communication
+ * between the ViewModel and the View.
+ */
 open class Event<out T>(private val content: T) {
 
     private var hasBeenDispatched = false
