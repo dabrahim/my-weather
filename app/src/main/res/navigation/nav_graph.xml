@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/cities_screen">
+
+    <fragment
+        android:id="@+id/cities_screen"
+        android:name="tech.keyops.challenge.myweather.ui.fragment.CitiesFragment"
+        android:label="@string/cities"
+        tools:layout="@layout/fragment_cities" />
+</navigation>
