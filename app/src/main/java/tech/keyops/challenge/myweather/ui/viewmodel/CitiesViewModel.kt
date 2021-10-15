@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import tech.keyops.challenge.myweather.arc.data.CitiesRepository
-import tech.keyops.challenge.myweather.arc.data.source.City
+import tech.keyops.challenge.myweather.arch.domain.City
+import tech.keyops.challenge.myweather.arch.usecase.GetCitiesUseCase
 import tech.keyops.challenge.myweather.ui.utility.Event
 import javax.inject.Inject
 
 @HiltViewModel
-class CitiesViewModel @Inject constructor(citiesRepository: CitiesRepository) :
+class CitiesViewModel @Inject constructor(getCitiesUseCase: GetCitiesUseCase) :
     ViewModel() {
 
-    private val _cities: MutableLiveData<List<City>> = MutableLiveData(citiesRepository.getCities())
+    private val _cities: MutableLiveData<List<City>> = MutableLiveData(getCitiesUseCase.invoke())
 
     val cities: LiveData<List<City>>
         get() = _cities

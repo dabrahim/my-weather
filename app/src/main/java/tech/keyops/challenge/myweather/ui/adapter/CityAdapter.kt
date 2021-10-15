@@ -3,7 +3,7 @@ package tech.keyops.challenge.myweather.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import tech.keyops.challenge.myweather.arc.data.source.City
+import tech.keyops.challenge.myweather.arch.domain.City
 import tech.keyops.challenge.myweather.databinding.CityItemBinding
 
 class CityAdapter(private val cities: List<City>, val onItemClick: (position: Int) -> Unit) :

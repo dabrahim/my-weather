@@ -5,15 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import tech.keyops.challenge.myweather.arc.data.WeatherRepository
-import tech.keyops.challenge.myweather.arc.data.source.Weather
+import tech.keyops.challenge.myweather.arch.domain.Weather
+import tech.keyops.challenge.myweather.arch.usecase.GetCityWeatherUseCase
 import tech.keyops.challenge.myweather.ui.utility.CustomObserver
 import tech.keyops.challenge.myweather.ui.utility.Event
 import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val weatherRepository: WeatherRepository,
+    private val getCityWeatherUseCase: GetCityWeatherUseCase,
     savedState: SavedStateHandle
 ) : ViewModel() {
 
@@ -53,7 +53,7 @@ class WeatherViewModel @Inject constructor(
             override fun onFailure(e: Throwable) = onFetchError(e)
         }
 
-        weatherRepository.getCityWeather(cityName)
+        getCityWeatherUseCase.invoke(cityName)
             .doOnSubscribe { dispatchToggleLoaderVisibilityEvent(true) } // We display the loader view while we get the data from the API
             .doAfterNext { dispatchToggleLoaderVisibilityEvent(false) } // When the data is loaded, we hide the loader view
             .subscribe(observer) // We register our observer
