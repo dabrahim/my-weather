@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk Versions.compileSdk
+
+    defaultConfig {
+        applicationId "tech.keyops.challenge.myweather"
+        minSdk Versions.minSdk
+        targetSdk Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation Dependencies.androidKtx
+    implementation Dependencies.appCompact
+    implementation Dependencies.materialDesign
+    implementation Dependencies.constraintLayout
+    implementation Dependencies.legacySupport
+    testImplementation Dependencies.jUnit
+    androidTestImplementation Dependencies.androidJUnit
+    androidTestImplementation Dependencies.espresso
+
+    // HILT DEPENDENCIES
+    implementation Dependencies.hilt
+    kapt Dependencies.hiltCompiler
+
+    // OkHttp Login interceptor
+    implementation Dependencies.okHttpLoggingInterceptor
+
+    // RETROFIT
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofitGsonConverter
+    implementation Dependencies.retrofitRxJavaAdapter
+
+    // RXJAVA
+    implementation Dependencies.rxJava
+    implementation Dependencies.rxAndroid
+
+    // Android Navigation
+    implementation Dependencies.navigationFragmentKtx
+    implementation Dependencies.navigationKtx
+
+    // GLIDE
+    implementation Dependencies.glide
+}
+
+
+kapt {
+    javacOptions {
+        option("-Adagger.fastInit=ENABLED")
+        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
+    }
+}
