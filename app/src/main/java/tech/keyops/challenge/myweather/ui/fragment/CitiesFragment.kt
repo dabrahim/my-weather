@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import tech.keyops.challenge.myweather.arch.domain.City
 import tech.keyops.challenge.myweather.databinding.FragmentCitiesBinding
 import tech.keyops.challenge.myweather.ui.adapter.CityAdapter
+import tech.keyops.challenge.myweather.ui.utility.EventObserver
 import tech.keyops.challenge.myweather.ui.viewmodel.CitiesViewModel
 
 @AndroidEntryPoint
@@ -35,11 +36,9 @@ class CitiesFragment : Fragment() {
             onCitiesLoaded(cities)
         }
 
-        viewModel.navigateToWeatherScreenEvent.observe(viewLifecycleOwner) { e ->
-            e.getContentIfNotDispatchedOrReturnNull()?.let {
-                navigateToWeatherScreen(it)
-            }
-        }
+        viewModel.navigateToWeatherScreenEvent.observe(viewLifecycleOwner, EventObserver {
+            navigateToWeatherScreen(it)
+        })
     }
 
     private fun onCitiesLoaded(cities: List<City>) {

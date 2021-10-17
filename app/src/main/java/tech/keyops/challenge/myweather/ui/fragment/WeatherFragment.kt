@@ -9,9 +9,10 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import tech.keyops.challenge.myweather.R
-import tech.keyops.challenge.myweather.arch.domain.Weather
 import tech.keyops.challenge.myweather.arch.data.datasource.impl.remote.Config
+import tech.keyops.challenge.myweather.arch.domain.Weather
 import tech.keyops.challenge.myweather.databinding.FragmentWeatherBinding
+import tech.keyops.challenge.myweather.ui.utility.EventObserver
 import tech.keyops.challenge.myweather.ui.viewmodel.WeatherViewModel
 
 @AndroidEntryPoint
@@ -37,18 +38,13 @@ class WeatherFragment : Fragment() {
         }
 
         // We subscribe to the loader visibility event and show/hide the loader view accordingly
-        viewModel.toggleLoaderVisibilityEvent.observe(viewLifecycleOwner) { e ->
-            e.getContentIfNotDispatchedOrReturnNull()
-                ?.let { // We make sure this event wasn't already dealt with
-                    toggleLoaderVisibility(it)
-                }
-        }
+        viewModel.toggleLoaderVisibilityEvent.observe(viewLifecycleOwner, EventObserver {
+            toggleLoaderVisibility(it)
+        })
 
-        viewModel.showErrorViewEvent.observe(viewLifecycleOwner) { e ->
-            e.getContentIfNotDispatchedOrReturnNull()?.let {
-                showErrorView()
-            }
-        }
+        viewModel.showErrorViewEvent.observe(viewLifecycleOwner, EventObserver {
+            showErrorView()
+        })
     }
 
     // Method to display the data to the view
