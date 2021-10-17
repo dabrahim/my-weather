@@ -1,4 +1,4 @@
-package tech.keyops.challenge.myweather.arc.di
+package tech.keyops.challenge.myweather.arch.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -13,8 +13,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import tech.keyops.challenge.myweather.BuildConfig
-import tech.keyops.challenge.myweather.arc.data.source.remote.Config
-import tech.keyops.challenge.myweather.arc.data.source.remote.WeatherWebService
+import tech.keyops.challenge.myweather.arch.data.datasource.impl.remote.Config
+import tech.keyops.challenge.myweather.arch.data.datasource.impl.remote.WeatherWebService
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)

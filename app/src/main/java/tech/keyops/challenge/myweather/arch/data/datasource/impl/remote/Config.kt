@@ -1,4 +1,4 @@
-package tech.keyops.challenge.myweather.arc.data.source.remote
+package tech.keyops.challenge.myweather.arch.data.datasource.impl.remote
 
 object Config {
     const val API_URL = "https://api.openweathermap.org/data/2.5/"

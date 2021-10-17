@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import tech.keyops.challenge.myweather.arc.data.source.City
+import tech.keyops.challenge.myweather.arch.domain.City
 import tech.keyops.challenge.myweather.databinding.FragmentCitiesBinding
 import tech.keyops.challenge.myweather.ui.adapter.CityAdapter
 import tech.keyops.challenge.myweather.ui.viewmodel.CitiesViewModel

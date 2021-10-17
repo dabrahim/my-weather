@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import tech.keyops.challenge.myweather.R
-import tech.keyops.challenge.myweather.arc.data.source.Weather
-import tech.keyops.challenge.myweather.arc.data.source.remote.Config
+import tech.keyops.challenge.myweather.arch.domain.Weather
+import tech.keyops.challenge.myweather.arch.data.datasource.impl.remote.Config
 import tech.keyops.challenge.myweather.databinding.FragmentWeatherBinding
 import tech.keyops.challenge.myweather.ui.viewmodel.WeatherViewModel
 

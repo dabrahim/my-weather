@@ -1,4 +1,4 @@
-package tech.keyops.challenge.myweather.arc.data.source.remote.response
+package tech.keyops.challenge.myweather.arch.data.datasource.impl.remote.response
 
 // Thanks to Gson, all we need is a class matching with the API response structure
 // to have the parsing handled for us.

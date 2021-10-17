@@ -1,4 +1,4 @@
-package tech.keyops.challenge.myweather.arc.data.source
+package tech.keyops.challenge.myweather.arch.domain
 
 class Weather(
     val iconId: String,
